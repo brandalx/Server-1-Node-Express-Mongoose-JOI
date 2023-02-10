@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-
+const Joi = require("joi");
 const booksSchema = new mongoose.Schema({
   name: String,
   cat_url: String,
@@ -12,3 +12,12 @@ const booksSchema = new mongoose.Schema({
 });
 
 exports.BooksModel = mongoose.model("s1books", booksSchema);
+exports.validateBooks = (_reqBody) => {
+  let joiSchema = Joi.object({
+    name: Joi.string().min(2).max(100).required(),
+    cat_url: Joi.string().min(2).max(100).required(),
+    info: Joi.string().min(2).max(100).required(),
+    img_url: Joi.string().min(2).max(100).allow(null, ""),
+  });
+  return joiSchema.validate(_reqBody);
+};

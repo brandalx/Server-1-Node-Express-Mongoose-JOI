@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { BooksModel } = require("../models/bookModel");
+const { BooksModel, validateBooks } = require("../models/bookModel");
 router.get("/", async (req, res) => {
   let perPage = 4;
   let page = req.query.page - 1 || 0;
