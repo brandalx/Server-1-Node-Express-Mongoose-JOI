@@ -20,4 +20,19 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.post("/", async (req, res) => {
+  let validBody = validateBooks(req.body);
+  if (validBody.error) {
+    return res.status(400).json(validBody.error.details);
+  }
+  try {
+    let books = new BooksModel(req.body);
+    await books.save();
+    res.status(201).json(books);
+  } catch (err) {
+    console.log(err);
+    res.status(502).json({ err });
+  }
+});
+
 module.exports = router;
