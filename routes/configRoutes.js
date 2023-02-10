@@ -3,5 +3,5 @@ const booksR = require("./books");
 
 exports.routesInit = (app) => {
   app.use("/", indexR);
-  app.use("/books", booksR);
+  app.use("/s1books", booksR);
 };
