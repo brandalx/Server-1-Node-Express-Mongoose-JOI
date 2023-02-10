@@ -46,4 +46,15 @@ router.put("/:id", async (req, res) => {
   }
 });
 
+router.delete("/:id", async (req, res) => {
+  try {
+    let id = req.params.id;
+    let data = await BooksModel.deleteOne({ _id: id });
+    res.json(data);
+  } catch (err) {
+    console.log(err);
+    res.status(502).json({ err });
+  }
+});
+
 module.exports = router;
