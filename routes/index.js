@@ -1,6 +1,8 @@
 const express = require("express");
+const path = require("path");
 const router = express.Router();
 router.get("/", async (req, res) => {
-  res.json({ message: "Express index.js as default route works correctly" });
+  const filePath = path.join(__dirname, "../public/index.html");
+  res.sendFile(filePath);
 });
 module.exports = router;
