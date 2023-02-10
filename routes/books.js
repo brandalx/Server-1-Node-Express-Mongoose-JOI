@@ -20,6 +20,23 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/search", async (req, res) => {
+  try {
+    let search = req.query.search;
+    //"i" cancels key sensitive for regular expression
+    let searchExpression = new RegExp(search, "i");
+    let data = await BooksModel.find({
+      $or: [{ name: searchExpression }, { info: searchExpression }],
+    }).limit(4);
+
+    //use http://localhost:3001/s1books/search?search=hello as example for search
+    res.json(data);
+  } catch (err) {
+    console.log(err);
+    res.status(502).json({ err });
+  }
+});
+
 router.post("/", async (req, res) => {
   let validBody = validateBooks(req.body);
   if (validBody.error) {
