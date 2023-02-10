@@ -35,4 +35,15 @@ router.post("/", async (req, res) => {
   }
 });
 
+router.put("/:id", async (req, res) => {
+  try {
+    let id = req.params.id;
+    let data = await BooksModel.updateOne({ _id: id }, req.body);
+    res.json(data);
+  } catch (err) {
+    console.log(err);
+    res.status(502).json({ err });
+  }
+});
+
 module.exports = router;
